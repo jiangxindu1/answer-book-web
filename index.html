@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>答案之书</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>答案之书</h1>
+    <textarea id="input-text" placeholder="请输入你的问题或心情" maxlength="200"></textarea>
+    <span id="word-count">0/200</span>
+    <button id="generate-btn">生成答案</button>
+    <button id="clear-btn">清除输入</button>
+    <div id="answer-container" class="loading">
+        <img src="book-loading.gif" alt="加载中" class="loading-icon">
+    </div>
+    <div id="share-container">
+        <button id="copy-btn">复制答案</button>
+        <button id="share-btn">分享答案</button>
+    </div>
+    <select id="font-select">
+        <option value="Arial">Arial</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+    </select>
+    <select id="color-select">
+        <option value="black">黑色</option>
+        <option value="red">红色</option>
+        <option value="blue">蓝色</option>
+    </select>
+    <select id="bg-select">
+        <option value="lightgray">浅灰色</option>
+        <option value="lightyellow">浅黄色</option>
+        <option value="lightgreen">浅绿色</option>
+    </select>
+    <script src="script.js"></script>
+</body>
+
+</html>

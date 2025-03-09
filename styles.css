@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+#word-count {
+    display: block;
+    margin-bottom: 10px;
+    color: #999;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #007BFF, #0056b3);
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #0056b3, #003d82);
+}
+
+#answer-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: lightgray;
+    border-radius: 5px;
+    font-size: 18px;
+    min-height: 50px;
+}
+
+.loading {
+    position: relative;
+}
+
+.loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+}
+
+#share-container {
+    margin-top: 20px;
+}
