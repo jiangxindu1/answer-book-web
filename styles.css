@@ -1,66 +1,129 @@
+/* 全局样式 */
+html {
+    font-size: 16px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.5s ease;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f8ff;
 }
 
+/* 容器样式 */
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1.25rem;
+    border-radius: 0.9375rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 31.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 标题样式 */
 h1 {
-    margin-bottom: 20px;
+    color: #0077b6;
+    font-size: 1.5rem;
+    margin-bottom: 0.9375rem;
 }
 
-textarea {
+/* 输入框样式 */
+input[type="text"] {
     width: 100%;
-    max-width: 600px;
-    height: 150px;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-#word-count {
-    display: block;
-    margin-bottom: 10px;
-    color: #999;
+input[type="text"]:focus {
+    border-color: #0077b6;
+    outline: none;
+}
+
+/* 按钮组样式 */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0.625rem;
 }
 
 button {
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 0.625rem 0.9375rem;
+    margin: 0.3125rem 0;
     border: none;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, #007BFF, #0056b3);
-    color: white;
+    border-radius: 0.5rem;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background: linear-gradient(to bottom, #0056b3, #003d82);
+#generateAnswerButton {
+    background-color: #0077b6;
+    color: white;
 }
 
-#answer-container {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: lightgray;
-    border-radius: 5px;
-    font-size: 18px;
-    min-height: 50px;
+#generateAnswerButton:hover {
+    background-color: #023e8a;
 }
 
-.loading {
-    position: relative;
+#clearInputButton {
+    background-color: #e9ecef;
+    color: #343a40;
 }
 
-.loading-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
+#clearInputButton:hover {
+    background-color: #ced4da;
 }
 
-#share-container {
-    margin-top: 20px;
+/* 答案输出区域样式 */
+#answerOutput {
+    margin-top: 0.9375rem;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* 媒体查询，针对小屏幕设备（如手机） */
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* 背景动效关键帧 */
+@keyframes backgroundEffect {
+    0% {
+        background-color: #f0f8ff;
+    }
+    50% {
+        background-color: #b3e5fc;
+    }
+    100% {
+        background-color: #f0f8ff;
+    }
+}
+
+/* 动效类 */
+.background-effect {
+    animation: backgroundEffect 1s ease;
 }

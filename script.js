@@ -1,4 +1,6 @@
 // 答案库
+
+// 答案库
 const answerLibrary = {
     "情感类": [
         "难过就像一场暴风雨，虽然猛烈，但总会过去，阳光终会洒落。",
@@ -185,111 +187,93 @@ const answerLibrary = {
     "鼓励类": [
         "你一定可以克服困难，加油！",
         "每一次挑战都是成长的机会。"
-        // 更多文案...
     ],
     "哲理类": [
         "生活就像一场旅行，不在乎目的地，在乎的是沿途的风景。",
         "过去的已经过去，未来还未到来，把握好现在。"
-        // 更多文案...
     ]
 };
-// 关键词列表
-const keywordMap = {
-    "分手": "情感类",
-    "工作": "决策类",
-    "焦虑": "鼓励类"
+
+// 定义关键词映射，根据输入中的关键词判断类别
+const keywordMapping = {
+    "情感类": ["难过", "开心", "悲伤", "快乐","爱"],
+    "决策类": ["可以", "决定", "抉择"],
+    "鼓励类": ["困难", "挑战"],
+    "哲理类": ["哲学"]
 };
 
 // 获取 DOM 元素
-const inputText = document.getElementById('input-text');
-const wordCount = document.getElementById('word-count');
-const generateBtn = document.getElementById('generate-btn');
-const clearBtn = document.getElementById('clear-btn');
-const answerContainer = document.getElementById('answer-container');
-const copyBtn = document.getElementById('copy-btn');
-const shareBtn = document.getElementById('share-btn');
-const fontSelect = document.getElementById('font-select');
-const colorSelect = document.getElementById('color-select');
-const bgSelect = document.getElementById('bg-select');
+const questionInput = document.getElementById('questionInput');
+const generateAnswerButton = document.getElementById('generateAnswerButton');
+const clearInputButton = document.getElementById('clearInputButton');
+const answerOutput = document.getElementById('answerOutput');
+const body = document.body;
 
-// 输入时实时字数统计
-inputText.addEventListener('input', () => {
-    const count = inputText.value.length;
-    wordCount.textContent = `${count}/200`;
-    if (count > 200) {
-        inputText.value = inputText.value.slice(0, 200);
-        alert('字数限制为 200 字以内');
+// 生成随机背景色的函数
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
+    return color;
+}
+
+// 输入时改变背景色
+questionInput.addEventListener('input', function () {
+    body.style.backgroundColor = getRandomColor();
 });
 
-// 生成答案
-generateBtn.addEventListener('click', () => {
-    const input = inputText.value.trim();
-    if (input === '') {
-        alert('请输入内容');
-        return;
+// 根据输入判断类别并生成答案的函数
+function generateAnswer() {
+    const question = questionInput.value;
+    let category = null;
+
+    // 遍历关键词映射，查找匹配的类别
+    for (const [cat, keywords] of Object.entries(keywordMapping)) {
+        if (keywords.some(keyword => question.includes(keyword))) {
+            category = cat;
+            break;
+        }
     }
-    answerContainer.classList.add('loading');
-    setTimeout(() => {
-        let category = null;
-        for (const keyword in keywordMap) {
-            if (input.includes(keyword)) {
-                category = keywordMap[keyword];
-                break;
-            }
-        }
-        let answers;
-        if (category) {
-            answers = answerLibrary[category];
-        } else {
-            const allAnswers = [];
-            for (const cat in answerLibrary) {
-                allAnswers.push(...answerLibrary[cat]);
-            }
-            answers = allAnswers;
-        }
+
+    let allAnswers = [];
+    // 将所有答案合并到一个数组中
+    for (const answers of Object.values(answerLibrary)) {
+        allAnswers = allAnswers.concat(answers);
+    }
+
+    if (category) {
+        const answers = answerLibrary[category];
         const randomIndex = Math.floor(Math.random() * answers.length);
         const answer = answers[randomIndex];
-        answerContainer.textContent = answer;
-        answerContainer.classList.remove('loading');
+        answerOutput.textContent = answer;
+    } else {
+        // 未识别到类别时，从所有答案中随机选一个
+        const randomIndex = Math.floor(Math.random() * allAnswers.length);
+        const answer = allAnswers[randomIndex];
+        answerOutput.textContent = answer;
+    }
+
+    // 添加背景动效
+    body.classList.add('background-effect');
+    setTimeout(() => {
+        body.classList.remove('background-effect');
     }, 1000);
-});
+}
 
-// 清除输入
-clearBtn.addEventListener('click', () => {
-    inputText.value = '';
-    wordCount.textContent = '0/200';
-});
+// 清除输入的函数
+function clearInput() {
+    questionInput.value = '';
+    answerOutput.textContent = '';
+    body.style.backgroundColor = '#f0f8ff'; // 恢复默认背景色
+}
 
-// 复制答案
-copyBtn.addEventListener('click', () => {
-    const answer = answerContainer.textContent;
-    if (answer) {
-        navigator.clipboard.writeText(answer).then(() => {
-            alert('答案已复制到剪贴板');
-        }).catch((err) => {
-            console.error('复制失败:', err);
-        });
-    }
-});
+// 监听按钮点击事件
+if (generateAnswerButton) {
+    generateAnswerButton.addEventListener('click', generateAnswer);
+}
 
-// 分享答案（简单模拟）
-shareBtn.addEventListener('click', () => {
-    const answer = answerContainer.textContent;
-    if (answer) {
-        alert(`分享答案: ${answer}`);
-    }
-});
-
-// 答案样式选择
-fontSelect.addEventListener('change', () => {
-    answerContainer.style.fontFamily = fontSelect.value;
-});
-
-colorSelect.addEventListener('change', () => {
-    answerContainer.style.color = colorSelect.value;
-});
-
-bgSelect.addEventListener('change', () => {
-    answerContainer.style.backgroundColor = bgSelect.value;
-});
+if (clearInputButton) {
+    clearInputButton.addEventListener('click', clearInput);
+}
